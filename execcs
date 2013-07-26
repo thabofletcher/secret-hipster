@@ -1,0 +1,4 @@
+#!/bin/sh
+
+mcs $1
+mono ${1/%cs/exe}
