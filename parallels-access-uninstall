@@ -1,0 +1,26 @@
+#!/bin/sh
+
+#http://forum.parallels.com/showthread.php?290358-Uninstalling-Parallels-Access/page2
+
+sudo rm -rf /Applications/Parallels\ Access.app
+running=$(ps ax|grep -i 'Parallels Access'|grep -v grep|awk '{print $1}')
+for x in ${running}; do
+    sudo kill -9 ${x}
+done
+
+sudo launchctl unload -w /Library/LaunchDaemons/com.parallels.mobile.dispatcher.launchdaemon.plist || echo
+sudo launchctl unload -w /Library/LaunchDaemons/com.parallels.mobile.kextloader.launchdaemon.plist || echo
+sudo launchctl unload -w /Library/LaunchAgents/com.parallels.mobile.prl_deskctl_agent.launchagent.plist || echo
+sudo launchctl unload -w /Library/LaunchAgents/com.parallels.mobile.startgui.launchagent.plist || echo
+
+sudo rm /etc/com.parallels.mobile.prl_deskctl_agent.launchd
+sudo rm /Library/LaunchDaemons/com.parallels.mobile.dispatcher.launchdaemon.plist
+sudo rm /Library/LaunchDaemons/com.parallels.mobile.kextloader.launchdaemon.plist
+sudo rm /Library/LaunchAgents/com.parallels.mobile.prl_deskctl_agent.launchagent.plist
+sudo rm /Library/LaunchAgents/com.parallels.mobile.startgui.launchagent.plist
+
+sudo rm /var/root/Library/Preferences/com.parallels.mobile.plist
+sudo rm /var/root/Library/Preferences/com.parallels.mobile_persist.plist
+
+rm ~/Library/Preferences/com.parallels.Parallels\ Access.plist
+rm ~/Library/Preferences/com.parallels.Parallels\ Access.plist.sdb
